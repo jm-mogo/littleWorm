@@ -1,5 +1,10 @@
 h1 {
     text-align: center;
+    color: aliceblue;
+}
+
+body {
+    background-color: #365050;
 }
 
 .container {
@@ -60,7 +65,33 @@ h1 {
         margin-right: 28px;
     }
     .controls button {
-        width: 64px;
-        height: 64px;
+        width: 0px;
+        height: 0px;
+        padding: 0px;
+        border: none;
+        background:none;
+    }
+    #btn-up {
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-bottom: 50px solid #e2e9f0;
+    }
+
+    #btn-down {
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-top: 50px solid #e2e9f0;
+    }
+
+    #btn-right {
+        border-top: 25px solid transparent;
+        border-left: 50px solid #e2e9f0;
+        border-bottom: 25px solid transparent;
+    }
+
+    #btn-left {
+        border-top: 25px solid transparent;
+        border-right: 50px solid #e2e9f0;
+        border-bottom: 25px solid transparent;
     }
 }
