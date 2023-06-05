@@ -8,12 +8,12 @@ h1 {
     display: grid;
     margin: auto;
     grid-template-columns: repeat(20, 1fr);
-    background-color: rgb(180, 224, 224);
-    border: dashed 3px #ff000052;
+    background-color: #b4e0e0;
+    border: dashed 3px #799696;
 }
 
 .container > div {
-    border: solid 1px #ff000052;
+    border: solid 1px #799696;
 }
 
 .wormBody {
