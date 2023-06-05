@@ -1,0 +1,31 @@
+.container {
+    height: 500px;
+    width: 500px;
+    display: grid;
+    margin: auto;
+    grid-template-columns: repeat(20, 1fr);
+    background-color: aqua;
+    border: dashed 3px red;
+}
+
+.container > div {
+    border: solid 1px red;
+}
+
+.wormBody {
+    background-color: greenyellow;
+    border: solid 1px green !important; 
+}
+
+.wormHead {
+    background-color: green;
+}
+
+.apple {
+   background: radial-gradient(rgb(190, 40, 40), red);
+    border-radius: 50%;
+}
+
+.fly {
+   background-color: black;
+}
