@@ -53,7 +53,7 @@ function changeDirection(e) {
         
 }
 
-function checklose(nextBox, lastIndex) {
+function checkLose(nextBox, lastIndex) {
     let count = 0;
     if (nextBox > 399 || nextBox < 0) {
         interval = 0
@@ -128,7 +128,7 @@ function getDirection(lastIndex) {
 function move() {
     let lastIndex = body.length - 1
     let nextBox = getDirection(lastIndex)
-    if  (checklose(nextBox, lastIndex)) {
+    if  (checkLose(nextBox, lastIndex)) {
         alert("You lose")
         return
     }
