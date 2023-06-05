@@ -8,12 +8,12 @@ h1 {
     display: grid;
     margin: auto;
     grid-template-columns: repeat(20, 1fr);
-    background-color: aqua;
-    border: dashed 3px red;
+    background-color: rgb(180, 224, 224);
+    border: dashed 3px #ff000052;
 }
 
 .container > div {
-    border: solid 1px red;
+    border: solid 1px #ff000052;
 }
 
 .wormBody {
@@ -32,4 +32,35 @@ h1 {
 
 .fly {
    background-color: black;
+}
+
+
+@media(min-width: 900px) {
+    .controls {
+    display:none;
+    }
+}
+
+@media(max-width: 900px) {
+    .container {
+        height: 90vw;
+        width: 90vw;
+    }
+
+    .controls {
+        width: 90vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        gap: 6px;
+    }
+    .controls div button{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .controls button {
+        width: 44px;
+        height: 44px;
+    }
 }
