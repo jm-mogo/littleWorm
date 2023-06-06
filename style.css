@@ -31,7 +31,7 @@ body {
 }
 
 .apple {
-   background: radial-gradient(rgb(190, 40, 40), red);
+   background: radial-gradient(rgb(255, 67, 67), red);
     border-radius: 50%;
 }
 
