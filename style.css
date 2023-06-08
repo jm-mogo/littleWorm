@@ -30,6 +30,15 @@ body {
     background-color: green;
 }
 
+.snakeBody {
+    background-color: #f87032;
+    border: solid 1px #f75205!important; 
+}
+
+.snakeHead {
+    background-color: #f75205;
+}
+
 .apple {
    background: radial-gradient(rgb(255, 67, 67), red);
     border-radius: 50%;
