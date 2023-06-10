@@ -1,55 +1,106 @@
 //DOM
 const header = document.getElementById("header")
 const container = document.getElementById("container")
+const gameMenu  = document.getElementById("menu")
+const rulesMenu = document.getElementById('menu-rules');
+const playBtn = document.getElementById("play-btn")
+const imgs = document.getElementById("imgs")
+const startIMG = document.getElementById("start")
+const middleIMG = document.getElementById("middle")
+const endIMG = document.getElementById("end")
 //Buttons
 const btnRight = document.getElementById("btn-right")
 const btnLeft = document.getElementById("btn-left")
 const btnUp = document.getElementById("btn-up")
 const btnDown = document.getElementById("btn-down")
 const btnRestart = document.getElementById("btn-restart")
+const radioButtons = document.getElementsByName('radio');
 
 let blocks = 400;
-let interval = 100
-let apple = randomPosition()
-let fly = 399
+let interval = 100;
+let apple = randomPosition();
+let fly = 399;
+let runningGame = 0
+let mode = "game"
 
-function randomPosition() {return Number.parseInt(Math.random() * 399) }
+function getSelectedRadio() {
+    for (let radio of radioButtons) {
+        if (radio.checked) {
+            mode = radio.value;
+        }
+    }
+}
+
+function animation() {
+    startIMG.classList.add("hidden")
+    middleIMG.classList.remove("hidden")
+    setTimeout(() => {
+        middleIMG.classList.add('hidden')
+        endIMG.classList.remove("hidden")
+        endIMG.classList.add('animation')
+    }, 400);
+    
+}
+
+function startGame() {
+    animation()
+    if (mode === "game") {
+       worm.changeBody([0,1,2])
+    }
+    setTimeout(() => {
+        container.classList.remove("hidden")
+        playBtn.classList.add("hidden")
+        gameMenu.classList.add("hidden")
+        rulesMenu.classList.add("hidden")
+        runningGame = setInterval(`${mode}()`, interval);
+    }, 2000);
+}
+
+function restart() {
+    clearInterval(runningGame)
+    runningGame = setInterval(game, interval);
+}
+
 
 const rules = {
     collision: true, 
     collisionSelf: true,
-    collisionBorders: true
+    collisionBorders: true,
 }
 
 const player = (name, body, direction) => {
     let points = 0;
 
+    const changeBody = (newBody) => body.splice(0, body.length, ...newBody);;
     const addPoint = () => points++;
     const getPoints = () => points;
     const getDirection = () => direction;
     const changeDirection = (newDirection) => direction = newDirection; 
     const getName = () => name;
     const getLength = () => body.length;
-    const getHead = () => Number(body.slice(-1))
+    const getHead = () => Number(body.slice(-1));
 
     const move = () => {
         let nextMove = "";
         switch (direction) {
             case "right":
-                nextMove = getHead() +  1
+                nextMove = (getHead() > 398 ? getHead() - 19: getHead() + 1);
                 break
             case "left":
-                nextMove = getHead() - 1;
+                nextMove = (getHead() < 1 ? getHead() + 19: getHead() - 1);
                 break
             case "up":
-                nextMove = getHead() - 20;
+                nextMove = (getHead() < 20 ? getHead() + 380: getHead() - 20);
                 break;
             case "down":
-                nextMove = getHead() + 20;
+                nextMove = (getHead() > 379 ? getHead() - 380: getHead() + 20);
                 break
         }
         body.push(nextMove)
-        body.shift()
+        if (checkAppleEat() !== true) {
+            body.shift()
+        }
+        
     }
     
     const movePc = () => {
@@ -57,11 +108,13 @@ const player = (name, body, direction) => {
         body.shift
     }
 
-    return { body, getDirection, addPoint, getPoints, changeDirection, move, getName, getLength, getHead, movePc }
+    return { body, getDirection, addPoint, getPoints, changeDirection, move, getName, getLength, getHead, movePc, changeBody }
 }
 
 const worm = player("worm", [0, 1, 2, 3, 4, 5, 6 ,7 ,8, 9], "right");
 const snake = player("snake", [399, 398, 397, 396, 395, 394, 393, 392, 391, 390], "left");
+
+function randomPosition() {return Number.parseInt(Math.random() * 399) }
 
 function printTable() {
     container.innerHTML = ""
@@ -98,76 +151,86 @@ function changeDirection(key) {
     } else if ( worm.getDirection() !== "down" && key === "ArrowUp" || this.id === "btn-up" )  {
         worm.changeDirection("up")
     }
-    if (snake.getDirection()!== "left" && key === "d" || this.id === "btn-right" ) {
+    if (snake.getDirection()!== "left" && key === "d") {
         snake.changeDirection("right")
-    } else if ( snake.getDirection() !== "right" && key === "a" || this.id === "btn-left" ) {
+    } else if ( snake.getDirection() !== "right" && key === "a") {
         snake.changeDirection("left")
-    } else if ( snake.getDirection() !== "up" && key === "s" || this.id === "btn-down"  ) {
+    } else if ( snake.getDirection() !== "up" && key === "s") {
         snake.changeDirection("down")
-    } else if ( snake.getDirection() !== "down" && key === "w" || this.id === "btn-up" )  {
+    } else if ( snake.getDirection() !== "down" && key === "w")  {
         snake.changeDirection("up")
     }
         
 }
 
-// function checkLose(nextBox, lastIndex) {
-//     let count = 0;
-//     if (nextBox > 399 || nextBox < 0) {
-//         interval = 0
-//         count++
-//         clearInterval(myInterval)
-//     } 
+function checkLose(player) {
+    if (checkCollisionBorders(player)){
+        alert("chocaste")
+    }
+    // if (nextBox > 399 || nextBox < 0) {
+    //     interval = 0
+    //     count++
+    //     clearInterval(runningGame)
+    // } 
     
-//     worm.body.forEach((box) => {
-//         if(box === nextBox) {
-//             count++
-//             clearInterval(myInterval)
-//         }
-//     })
+    // worm.body.forEach((box) => {
+    //     if(box === nextBox) {
+    //         count++
+    //         clearInterval(myInterval)
+    //     }
+    // })
 
-//     if (direction === "right") {
-//         let extreme = 19
-//         for (let i = 0; i < 20; i++) {
-//             if (worm.body[lastIndex] === extreme) {
-//                 count++
-//                 clearInterval(myInterval)
-//             }
-//             extreme += 20
-//         }
-        
-//     }
-
-//     if (direction === "left") {
-//         let extreme = 20
-//         for (let i = 0; i < 20; i++) {
-//             if (worm.body[lastIndex] === extreme) {
-//                 count++
-//                 clearInterval(myInterval)
-//             }
-//             extreme += 20
-//         }
-        
-//     }
-
-//     return count > 0 ? true: false
-// }
-
-function checkAppleEat(nextBox) {
-    if (fly === apple) {
-        apple = randomPosition()
-        worm.body.shift()
-        return
-    }
-    if (nextBox === apple) {
-        apple = randomPosition()
-        points++
-        header.textContent = "You've got " + points + " points"
-        return 
-    }
-    worm.body.shift()
 }
 
-function checkAppleEatMultiplayer() {
+function checkCollisionBorders(player) {
+    
+    if (player.getDirection() === "up" && player.getHead() > 300 && player.body[player.getLength() - 2] < 20) {
+        return true
+    }
+
+    if (player.getDirection() === "down" && player.getHead() < 20 && player.body[player.getLength() - 2] > 300) {
+        return true
+    }
+
+    if (player.getDirection() === "right") {
+        let extreme = 20
+        for (let i = 0; i < 20; i++) {
+            if (player.getHead() === extreme) {
+                return true
+            }
+            extreme += 20
+        }
+        
+    }
+
+    if (player.getDirection() === "left") {
+        let extreme = 19
+        for (let i = 0; i < 20; i++) {
+            if (player.getHead() === extreme) {
+                return true
+            }
+            extreme += 20
+        }
+    }
+}
+
+function checkAppleEat() {
+    if (fly === apple) {
+        apple = randomPosition()
+        return;
+    }
+    if (worm.getHead() === apple) {
+        apple = randomPosition()
+        worm.addPoint()
+        return true;
+    }
+}
+
+function checkAppleEatMP() {
+    if (fly === apple) {
+        apple = randomPosition()
+        return;
+    }
     if (worm.getHead() === apple) {
         apple = randomPosition()
         snake.body.shift();
@@ -177,51 +240,37 @@ function checkAppleEatMultiplayer() {
         worm.body.shift();
         apple = randomPosition()
         return;
-    }
+    } 
 }
-
 
 
 function game() {
     printTable();
-    printPlayer(worm)
+    
 
     worm.move()
-
-    moveFly()   
+    fly = movePC(fly);
+    checkAppleEat()
     
-    printApple()
+    printPlayer(worm)
     printFly()
+    printApple()
 }
 
 function multiplayerGame() {
     printTable()
 
-    printPlayer(worm)
-    printPlayer(snake)
-
-    worm.move()
-    snake.move()
-
-    printApple()
-    checkAppleEatMultiplayer()
-
-    header.textContent = `Worm lives: ${worm.getLength()} Snake lives: ${snake.getLength()}`
-}
-
-function multiplayerGamePc() {
-    printTable()
-
-    printPlayer(worm)
-    printPlayer(snake)
-
-    worm.move()
-    
+    worm.move();
+    snake.move();
+    fly = movePC(fly);
+    checkAppleEatMP();
+    checkLose(worm);
+    checkLose(snake);
 
     printApple()
-    checkAppleEatMultiplayer()
-
-    header.textContent = `Worm lives: ${worm.getLength()} Snake lives: ${snake.getLength()}`
+    printFly()
+    printPlayer(worm)
+    printPlayer(snake)
 }
 
 
@@ -244,21 +293,12 @@ function movePC(pc) {
     return pc
 }
 
-let myInterval = ""
-
-function restart() {
-    clearInterval(myInterval)
-    myInterval = setInterval(game, interval);
-}
-
-myInterval = setInterval(multiplayerGame, interval);
-
-
 btnRight.addEventListener("click", changeDirection)
 btnLeft.addEventListener("click", changeDirection)
 btnUp.addEventListener("click", changeDirection)
 btnDown.addEventListener("click", changeDirection)
 btnRestart.addEventListener("click", restart)
+menu.addEventListener("click", getSelectedRadio)
 
 //Keyboard handle
 document.addEventListener("keydown", (e) => {
@@ -266,4 +306,3 @@ document.addEventListener("keydown", (e) => {
     changeDirection(e.key)
     console.log(e.key)
 })
-

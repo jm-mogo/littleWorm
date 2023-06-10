@@ -1,10 +1,133 @@
-h1 {
-    text-align: center;
-    color: aliceblue;
-}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
     background-color: #365050;
+}
+
+/* animation */
+
+section img {
+    margin-top: -60px;
+    position: absolute;
+    height: 120px;
+}
+
+.animation {
+    animation-duration        : 1.5s;
+    animation-fill-mode       : both;
+    animation-iteration-count : 1;
+    animation-name            : fastSlide;
+    animation-timing-function : linear;
+    transform-origin          : bottom;
+}
+
+@keyframes fastSlide {
+    0%   { transform: translate(0%)  ; }
+    100% { transform: translate(320%)   ; }
+}
+
+
+/* end animation */
+
+.title {
+    display: flex;
+    color: aliceblue;
+    justify-content: center;
+    align-items: center; 
+}
+
+.title h2 {
+    font-family: 'Press Start 2P';
+    width: 306px;
+    font-size: 36px;
+    text-align: center;
+}
+
+.logo {
+    height: 56px;
+    position: absolute;
+}
+
+.menu {
+    width: 280px;
+    margin: auto;
+    height: 200px; 
+}
+
+.menu h2,
+.menu-rules h2 {
+    text-align: center;
+    font-family: system-ui, sans-serif;
+    color: #e2e9f0;
+    font-size: 2rem;
+}
+
+.form-mode,
+.form-rules {
+    font-family: system-ui, sans-serif;
+    color: #e2e9f0;
+    font-size: 1.7rem;
+    font-weight: bold;
+    line-height: 1.1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-mode + .form-mode {
+    margin-top: 20px;
+}
+
+input[type="radio"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    appearance: none;
+    background-color: #b4e0e0;
+    font: inherit;
+    width: 40px;
+    height: 40px;
+    border: 4px solid currentColor;
+    border: none;
+    border-radius: 50%;
+    transform: translateY(-0.075em);
+}
+
+input[type="radio"]::before { 
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #fc2323;
+  }
+
+  
+input[type="radio"]:checked::before {
+    transform: scale(1);
+  }
+
+/* Menu rules */
+.menu-rules {
+    width: 280px;
+    height: 200px;
+    margin: auto;    
+}
+
+.play-btn {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    height: 50px;
+    background-color: #b4e0e0;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.play-btn h2 {
+    font-family: 'Press Start 2P';
+    color: #596666;
 }
 
 .container {
@@ -22,16 +145,16 @@ body {
 }
 
 .wormBody {
-    background-color: greenyellow;
-    border: solid 1px green !important; 
+    background-color: #adff2f;
+    border: solid 1px #008000 !important; 
 }
 
 .wormHead {
-    background-color: green;
+    background-color: #008000;
 }
 
 .snakeBody {
-    background-color: #f87032;
+    background-color: #fc9260;
     border: solid 1px #f75205!important; 
 }
 
@@ -40,14 +163,17 @@ body {
 }
 
 .apple {
-   background: radial-gradient(rgb(255, 67, 67), red);
+    background: radial-gradient(#ff4343, #ff0000);
     border-radius: 50%;
 }
 
 .fly {
-   background-color: black;
+    background-color: black;
 }
 
+.hidden {
+    display:none;
+}
 
 @media(min-width: 900px) {
     .controls {
