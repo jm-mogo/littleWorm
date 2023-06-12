@@ -62,7 +62,7 @@ function animation() {
         middleIMG.classList.add(HIDDEN);
         endIMG.classList.remove(HIDDEN);
         endIMG.classList.add("animation");
-    }, 400);
+    }, 50);
 }
 
 function startGame() {
@@ -153,6 +153,14 @@ function randomPosition() {
     return Number.parseInt(Math.random() * 399);
 }
 
+function printScore() {
+    if (mode === "game") {
+        score.innerHTML = `<h2>Worm points: ${worm.getPoints()}</h2>`;
+        return;
+    }
+    score.innerHTML = `<h2>Worm lives: ${worm.getLength()}</h2><h2> Snake lives: ${snake.getLength()}</h2>`;
+}
+
 function printTable() {
     container.innerHTML = "";
     for (let i = 0; i < BLOCKS; i++) {
@@ -215,15 +223,18 @@ function changeDirection(key) {
 }
 
 function checkLose(player) {
-    // if (checkCollisionBorders(player)) {
-    //     alert("You die");
-    // }
-    // if (checkCollision(player)) {
-    //     alert("You eat enemy");
-    // }
+    if (checkCollisionBorders(player)) {
+        alert("You die");
+    }
+    if (checkCollision(player)) {
+        alert("You eat enemy");
+    }
 }
 
 function checkCollision(player) {
+    if (!rules.collision) {
+        return
+    }
     if (player.getName() === WORM) {
         return worm.body.some((body) => body === snake.getHead());
     } else {
@@ -232,6 +243,9 @@ function checkCollision(player) {
 }
 
 function checkCollisionBorders(player) {
+    if (!rules.collisionBorders) {
+        return
+    }
     if (
         player.getDirection() === UP &&
         player.getHead() > 300 &&
@@ -299,6 +313,7 @@ function checkAppleEatMP() {
 }
 
 function game() {
+    printScore();
     printTable();
 
     if (rules.fly) {
@@ -316,6 +331,7 @@ function game() {
 }
 
 function multiplayerGame() {
+    printScore();
     printTable();
 
     worm.move();
