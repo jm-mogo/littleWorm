@@ -13,17 +13,22 @@ section img {
 }
 
 .animation {
-    animation-duration        : 1.5s;
-    animation-fill-mode       : both;
-    animation-iteration-count : 1;
-    animation-name            : fastSlide;
-    animation-timing-function : linear;
-    transform-origin          : bottom;
+    animation-duration: 1.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-name: fastSlide;
+    animation-timing-function: linear;
+    transform-origin: bottom;
 }
 
 @keyframes fastSlide {
-    0%   { transform: translate(0%)  ; }
-    100% { transform: translate(320%)   ; }
+    0% {
+        transform: translate(0%);
+    }
+
+    100% {
+        transform: translate(320%);
+    }
 }
 
 
@@ -33,7 +38,7 @@ section img {
     display: flex;
     color: aliceblue;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
 .title h2 {
@@ -51,7 +56,7 @@ section img {
 .menu {
     width: 280px;
     margin: auto;
-    height: 200px; 
+    height: 200px;
 }
 
 .menu h2,
@@ -73,7 +78,7 @@ section img {
     justify-content: space-between;
 }
 
-.form-mode + .form-mode {
+.form-mode+.form-mode {
     margin-top: 20px;
 }
 
@@ -92,7 +97,7 @@ input[type="radio"] {
     transform: translateY(-0.075em);
 }
 
-input[type="radio"]::before { 
+input[type="radio"]::before {
     content: "";
     width: 0.65em;
     height: 0.65em;
@@ -100,20 +105,21 @@ input[type="radio"]::before {
     transform: scale(0);
     transition: 120ms transform ease-in-out;
     box-shadow: inset 1em 1em #fc2323;
-  }
+}
 
-  
+
 input[type="radio"]:checked::before {
     transform: scale(1);
-  }
+}
 
 /* Menu rules */
 .menu-rules {
     width: 280px;
     height: 200px;
-    margin: auto;    
+    margin: auto;
 }
 
+/* Menu rules END*/
 .play-btn {
     display: flex;
     align-items: center;
@@ -140,13 +146,13 @@ input[type="radio"]:checked::before {
     border: dashed 3px #799696;
 }
 
-.container > div {
+.container>div {
     border: solid 1px #799696;
 }
 
 .wormBody {
     background-color: #adff2f;
-    border: solid 1px #008000 !important; 
+    border: solid 1px #008000 !important;
 }
 
 .wormHead {
@@ -155,7 +161,7 @@ input[type="radio"]:checked::before {
 
 .snakeBody {
     background-color: #fc9260;
-    border: solid 1px #f75205!important; 
+    border: solid 1px #f75205 !important;
 }
 
 .snakeHead {
@@ -172,12 +178,12 @@ input[type="radio"]:checked::before {
 }
 
 .hidden {
-    display:none;
+    display: none;
 }
 
 @media(min-width: 900px) {
     .controls {
-    display:none;
+        display: none;
     }
 }
 
@@ -195,17 +201,20 @@ input[type="radio"]:checked::before {
         padding: 10px;
         gap: 6px;
     }
-    .controls div button{
+
+    .controls div button {
         margin-left: 28px;
         margin-right: 28px;
     }
+
     .controls button {
         width: 0px;
         height: 0px;
         padding: 0px;
         border: none;
-        background:none;
+        background: none;
     }
+
     #btn-up {
         border-left: 25px solid transparent;
         border-right: 25px solid transparent;

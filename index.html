@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,62 +10,77 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
-    <div class="title">
+    <div class="title" id="title">
         <h2>Little Worm</h2>
         <h2>Little Snake</h2>
         <img class="logo" src="logo/logo.jpeg" alt="">
     </div>
+    <div class="score" id="score">
+
+    </div>
     <form action="" class="menu" id="menu">
         <h2>Game mode</h2>
         <div class="form-mode">
-            <label  for="game">Single Player</label>
-            <input type="radio" name="radio" id="game"" value="game" checked/>
+            <label for="game">Single Player</label>
+            <input type="radio" name="radio" id="game"" value=" game" checked />
         </div>
-        <div class="form-mode" >
+        <div class="form-mode">
             <label for="multiplayer">Multiplayer</label>
-            <input type="radio" name="radio" value="multiplayerGame"  id="multiplayer"/>              
-        </div>             
+            <input type="radio" name="radio" value="multiplayerGame" id="multiplayer" />
+        </div>
     </form>
 
     <form action="" class="menu-rules" id="menu-rules">
         <h2>Rules</h2>
         <div class="form-rules">
-            <label for="borders">Collision borders</label>   
-            <input type="checkbox" id="borders">
+            <label for="fly">Fly</label>
+            <input type="checkbox" name="checkbox" id="fly">
+            <span class="slider"></span>
+        </div>
+        <div class="form-rules">
+            <label for="collisionBoders">Collision borders</label>
+            <input type="checkbox" name="checkbox" id="collisionBoders">
+            <span class="slider"></span>
+        </div>
+        <div class="form-rules">
+            <label for="collisionSelf">Collision against</label>
+            <input type="checkbox" name="checkbox" id="collisionSelf">
             <span class="slider"></span>
         </div>
     </form>
 
-    <div class="play-btn" id="play-btn" onclick="startGame()">
+    <div class="play-btn" id="play-btn">
         <h2>Play</h2>
         <section id="imgs">
             <img class="start" id="start" src="animation/start.png" />
             <img class="middle hidden" id="middle" src="animation/middle.png" />
             <img class="end hidden" id="end" src="animation/end.png">
-          </section>
+        </section>
     </div>
-    
+
     <div class="container hidden" id="container">
-        
+
     </div>
 
     <div class="controls">
         <div>
             <button id="btn-up"></button>
         </div>
-        
+
         <div>
             <button id="btn-left"></button>
             <button id="btn-right"></button>
         </div>
         <button id="btn-down"></button>
     </div>
-    
+
 
     <div>
         <button id="btn-restart" class="hidden">Restart</button>
     </div>
 
 </body>
+
 </html>
