@@ -69,6 +69,7 @@ function startGame() {
     animation();
     if (mode === "game") {
         worm.changeBody([0, 1, 2]);
+        snake.changeBody([400]);
     }
     setTimeout(() => {
         container.classList.remove(HIDDEN);
@@ -233,7 +234,7 @@ function checkLose(player) {
 
 function checkCollision(player) {
     if (!rules.collision) {
-        return
+        return;
     }
     if (player.getName() === WORM) {
         return worm.body.some((body) => body === snake.getHead());
@@ -244,7 +245,7 @@ function checkCollision(player) {
 
 function checkCollisionBorders(player) {
     if (!rules.collisionBorders) {
-        return
+        return;
     }
     if (
         player.getDirection() === UP &&
