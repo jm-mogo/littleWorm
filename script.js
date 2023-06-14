@@ -234,6 +234,7 @@ function checkLose(player) {
 
 function lose(player) {
     player.changeBody([])
+    clearInterval(runningGame)
 }
 
 function checkCollision(player) {
