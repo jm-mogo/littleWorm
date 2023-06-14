@@ -225,11 +225,15 @@ function changeDirection(key) {
 
 function checkLose(player) {
     if (checkCollisionBorders(player)) {
-        alert("You die");
+        lose(player)
     }
     if (checkCollision(player)) {
-        alert("You eat enemy");
+        lose(player)
     }
+}
+
+function lose(player) {
+    player.changeBody([])
 }
 
 function checkCollision(player) {
@@ -237,9 +241,9 @@ function checkCollision(player) {
         return;
     }
     if (player.getName() === WORM) {
-        return worm.body.some((body) => body === snake.getHead());
-    } else {
         return snake.body.some((body) => body === worm.getHead());
+    } else {
+        return worm.body.some((body) => body === snake.getHead());
     }
 }
 
