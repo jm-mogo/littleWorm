@@ -208,6 +208,11 @@ input[type="checkbox"]:checked {
     display: none;
 }
 
+.restart-menu {
+    width: 280px;
+    margin: auto;
+}
+
 @media(min-width: 900px) {
     .controls {
         display: none;

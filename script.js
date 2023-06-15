@@ -18,6 +18,8 @@ const btnRight = document.getElementById("btn-right");
 const btnLeft = document.getElementById("btn-left");
 const btnUp = document.getElementById("btn-up");
 const btnDown = document.getElementById("btn-down");
+//Audio
+const eat = new Audio('sounds/eat.wav');
 
 const rules = {
     fly: false,
@@ -72,6 +74,7 @@ function startGame() {
         snake.changeBody([400]);
     }
     setTimeout(() => {
+        btnRestart.classList.remove(HIDDEN);
         container.classList.remove(HIDDEN);
         title.classList.add(HIDDEN);
         playBtn.classList.add(HIDDEN);
@@ -83,7 +86,20 @@ function startGame() {
 
 function restart() {
     clearInterval(runningGame);
-    runningGame = setInterval(game, interval);
+    if (mode === "game") {
+        worm.resetPoints();
+        worm.changeBody([0, 1, 2]);
+        worm.changeDirection(RIGHT);
+        snake.changeBody([400]);
+    } else {
+        worm.changeBody([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        worm.resetPoints();
+        worm.changeDirection(RIGHT);
+        snake.changeBody([399, 398, 397, 396, 395, 394, 393, 392, 391, 390]);
+        snake.changeDirection(LEFT);
+        snake.resetPoints();
+    }
+    runningGame = setInterval(`${mode}()`, interval);
 }
 
 const player = (name, body, direction) => {
@@ -92,6 +108,7 @@ const player = (name, body, direction) => {
     const changeBody = (newBody) => body.splice(0, body.length, ...newBody);
     const addPoint = () => points++;
     const getPoints = () => points;
+    const resetPoints = () => (points = 0);
     const getDirection = () => direction;
     const changeDirection = (newDirection) => (direction = newDirection);
     const getName = () => name;
@@ -133,6 +150,7 @@ const player = (name, body, direction) => {
         getDirection,
         addPoint,
         getPoints,
+        resetPoints,
         changeDirection,
         move,
         getName,
@@ -225,16 +243,16 @@ function changeDirection(key) {
 
 function checkLose(player) {
     if (checkCollisionBorders(player)) {
-        lose(player)
+        lose(player);
     }
     if (checkCollision(player)) {
-        lose(player)
+        lose(player);
     }
 }
 
 function lose(player) {
-    player.changeBody([])
-    clearInterval(runningGame)
+    player.changeBody([]);
+    clearInterval(runningGame);
 }
 
 function checkCollision(player) {
@@ -291,10 +309,12 @@ function checkCollisionBorders(player) {
 
 function checkAppleEat() {
     if (fly === apple) {
+        eat.play()
         apple = randomPosition();
         return;
     }
     if (worm.getHead() === apple) {
+        eat.play()
         apple = randomPosition();
         worm.addPoint();
         return true;
@@ -304,16 +324,22 @@ function checkAppleEat() {
 function checkAppleEatMP() {
     if (fly === apple) {
         apple = randomPosition();
+        eat.load()
+        eat.play()
         return;
     }
     if (worm.getHead() === apple) {
         apple = randomPosition();
         snake.body.shift();
+        eat.load()
+        eat.play()
         return;
     }
     if (snake.getHead() === apple) {
         worm.body.shift();
         apple = randomPosition();
+        eat.load()
+        eat.play()
         return;
     }
 }
