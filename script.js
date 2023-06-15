@@ -9,17 +9,19 @@ const imgs = document.getElementById("imgs");
 const startIMG = document.getElementById("start");
 const middleIMG = document.getElementById("middle");
 const endIMG = document.getElementById("end");
+const restartMenu = document.getElementById("restart-menu");
 //Buttons
 const btnRestart = document.getElementById("btn-restart");
 const radioButtons = document.getElementsByName("radio");
 const checkButtons = document.getElementsByName("checkbox");
+const mainMenuBtn = document.getElementById('main-menu-btn')
 //Player buttons
 const btnRight = document.getElementById("btn-right");
 const btnLeft = document.getElementById("btn-left");
 const btnUp = document.getElementById("btn-up");
 const btnDown = document.getElementById("btn-down");
 //Audio
-const eat = new Audio('sounds/eat.wav');
+const eat = new Audio("sounds/eat.wav");
 
 const rules = {
     fly: false,
@@ -74,7 +76,8 @@ function startGame() {
         snake.changeBody([400]);
     }
     setTimeout(() => {
-        btnRestart.classList.remove(HIDDEN);
+        score.classList.remove(HIDDEN)
+        restartMenu.classList.remove(HIDDEN);
         container.classList.remove(HIDDEN);
         title.classList.add(HIDDEN);
         playBtn.classList.add(HIDDEN);
@@ -82,6 +85,27 @@ function startGame() {
         rulesMenu.classList.add(HIDDEN);
         runningGame = setInterval(`${mode}()`, interval);
     }, 2000);
+}
+
+function mainMenu() {
+    clearInterval(runningGame)
+    restartMenu.classList.add(HIDDEN);
+    container.classList.add(HIDDEN);
+    title.classList.remove(HIDDEN);
+    score.classList.add(HIDDEN)
+    playBtn.classList.remove(HIDDEN);
+    gameMenu.classList.remove(HIDDEN);
+    rulesMenu.classList.remove(HIDDEN);
+    startIMG.classList.remove(HIDDEN);
+    endIMG.classList.add(HIDDEN);
+    endIMG.classList.remove("animation");
+    worm.changeBody([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    worm.resetPoints();
+    worm.changeDirection(RIGHT);
+    snake.changeBody([399, 398, 397, 396, 395, 394, 393, 392, 391, 390]);
+    snake.changeDirection(LEFT);
+    snake.resetPoints();
+    printTable()
 }
 
 function restart() {
@@ -169,7 +193,7 @@ const snake = player(
 );
 
 function randomPosition() {
-    return Number.parseInt(Math.random() * 399);
+    return Math.floor(Math.random() * 400);
 }
 
 function printScore() {
@@ -242,6 +266,9 @@ function changeDirection(key) {
 }
 
 function checkLose(player) {
+    if (player.getLength() < 1) {
+        lose(player);
+    }
     if (checkCollisionBorders(player)) {
         lose(player);
     }
@@ -309,12 +336,12 @@ function checkCollisionBorders(player) {
 
 function checkAppleEat() {
     if (fly === apple) {
-        eat.play()
+        eat.play();
         apple = randomPosition();
         return;
     }
     if (worm.getHead() === apple) {
-        eat.play()
+        eat.play();
         apple = randomPosition();
         worm.addPoint();
         return true;
@@ -324,22 +351,22 @@ function checkAppleEat() {
 function checkAppleEatMP() {
     if (fly === apple) {
         apple = randomPosition();
-        eat.load()
-        eat.play()
+        eat.load();
+        eat.play();
         return;
     }
     if (worm.getHead() === apple) {
         apple = randomPosition();
         snake.body.shift();
-        eat.load()
-        eat.play()
+        eat.load();
+        eat.play();
         return;
     }
     if (snake.getHead() === apple) {
         worm.body.shift();
         apple = randomPosition();
-        eat.load()
-        eat.play()
+        eat.load();
+        eat.play();
         return;
     }
 }
@@ -409,8 +436,12 @@ btnRestart.addEventListener("click", restart);
 menu.addEventListener("click", changeGameMode);
 rulesMenu.addEventListener("click", changeRules);
 playBtn.addEventListener("click", startGame);
+mainMenuBtn.addEventListener("click", mainMenu)
 //Keyboard handle
 document.addEventListener("keydown", (e) => {
     e = e || window.event;
     changeDirection(e.key);
+    if (e.key === "r") {
+        restart();
+    }
 });

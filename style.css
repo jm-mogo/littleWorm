@@ -208,9 +208,24 @@ input[type="checkbox"]:checked {
     display: none;
 }
 
-.restart-menu {
-    width: 280px;
+.restart-btns {
+    width: 380px;
+    padding-top: 32px;
     margin: auto;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+.restart-btns > button {
+    width: 120px;
+    height: 34px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #b4e0e0;
+    color: #303636;
+    border: none;
+    border-radius: 20px;
 }
 
 @media(min-width: 900px) {
