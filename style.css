@@ -124,7 +124,7 @@ input[type="radio"]:checked::before {
 /* Menu rules */
 .menu-rules {
     width: 280px;
-    height: 200px;
+    height: 240px;
     margin: auto;
 }
 

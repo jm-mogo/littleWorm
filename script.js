@@ -279,6 +279,9 @@ function checkLose(player) {
     if (checkCollision(player)) {
         lose(player);
     }
+    if (checkCollisionSelf(player)) {
+        lose(player);
+    }
 }
 
 function lose(player) {
@@ -294,6 +297,17 @@ function checkCollision(player) {
         return snake.body.some((body) => body === worm.getHead());
     } else {
         return worm.body.some((body) => body === snake.getHead());
+    }
+}
+
+function checkCollisionSelf(player) {
+    if (!rules.collisionSelf) {
+        return;
+    }
+    for (let i = 0; i <= player.getLength() - 2; i++) {
+        if (player.body[i] === player.getHead()) {
+            return true;
+        }
     }
 }
 
