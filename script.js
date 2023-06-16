@@ -99,34 +99,28 @@ function mainMenu() {
     startIMG.classList.remove(HIDDEN);
     endIMG.classList.add(HIDDEN);
     endIMG.classList.remove("animation");
-    worm.changeBody([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    resetAllValues()
+    printTable();
+}
+
+function resetAllValues() {
+    fly = 399;
     worm.resetPoints();
     worm.changeDirection(RIGHT);
+    apple = randomPosition();
     snake.changeBody([399, 398, 397, 396, 395, 394, 393, 392, 391, 390]);
+    worm.changeBody([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     snake.changeDirection(LEFT);
     snake.resetPoints();
-    printTable();
-    apple = randomPosition();
 }
 
 function restart() {
     clearInterval(runningGame);
+    resetAllValues()
     if (mode === "game") {
-        worm.resetPoints();
         worm.changeBody([0, 1, 2]);
-        worm.changeDirection(RIGHT);
         snake.changeBody([400]);
-        fly = 399;
-        apple = randomPosition();
-    } else {
-        worm.changeBody([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        worm.resetPoints();
-        worm.changeDirection(RIGHT);
-        snake.changeBody([399, 398, 397, 396, 395, 394, 393, 392, 391, 390]);
-        snake.changeDirection(LEFT);
-        snake.resetPoints();
-        apple = randomPosition();
-    }
+    } 
     runningGame = setInterval(`${mode}()`, interval);
 }
 
