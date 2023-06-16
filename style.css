@@ -163,11 +163,21 @@ input[type="checkbox"]:checked {
     color: #596666;
 }
 
+/* .score-container {
+    width: 99vw;
+    display: flex;
+}
+
+.score-wins {
+    color: #e2e9f0; 
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
 .container {
+    margin: auto;
     height: 500px;
     width: 500px;
     display: grid;
-    margin: auto;
     grid-template-columns: repeat(20, 1fr);
     background-color: #b4e0e0;
     border: dashed 3px #799696;
